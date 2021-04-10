@@ -1,0 +1,732 @@
+<style>
+td {
+  font-size: 11px
+}
+th {
+  font-size: 13px
+}
+</style>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Nina Melin, Nadja Riis and Thina L. Thøgersen">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Social Graphs</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="song_sentiment_line_plot.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_data">Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_intro" tabindex="-1">Intro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_genres" tabindex="-1">Choosing Genres</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_network" tabindex="-1">Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_communities" tabindex="-1">Communities</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_communitywords" tabindex="-1">Community Words</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_genrewords" tabindex="-1">Genre Words</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_pagesentiment" tabindex="-1">Page Sentiment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_lyricsentiment" tabindex="-1">Lyric Sentiment</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="#id_sentimentchanges" tabindex="-1">Sentiment Changes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#id_connection" tabindex="-1">Connecting Genres</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        <div class="container">
+            <img src="images/BackgroundGraph.png" width="65%" class="center-image">
+            <div class="text-block">
+                <h2 class="featurette-heading">Analyzing Music Genres <br> <span class="text-muted">Using Network Theory <br> and Natural Language Processing</span></h2>
+            </div>
+        </div>
+        
+        <!-- Marketing messaging and featurettes
+  ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+        <div class="anchor" id="id_data"> </div>
+        <div class="container marketing pt-5">
+            <!-- Three columns of text below the carousel -->
+            <div class="row">
+                <div class="col-lg-4">
+                  <img src="images/wikipedia.png" width="65%">
+<!--                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                        </svg> -->
+                    <h2>Data from Wikipedia</h2>
+<!--                    <p>Placeholder.</p> -->
+                  <p><a class="btn btn-secondary" href="data/Dataframes.zip" role="button">Download dataframes &raquo;</a></p>
+                  <p><a class="btn btn-secondary" href="data/Wikipages.zip" role="button">Download wikipages &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                  <img src="images/genius.png" width="60%">
+                    <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="https://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    </svg> -->
+                    <h2>Data from Genius</h2>
+                    <p><a class="btn btn-secondary" href="data/artist_songs.zip" role="button">Download artists &raquo;</a></p>
+                    <p><a class="btn btn-secondary" href="data/lyric_info_df.zip" role="button">Download lyrics &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+                <div class="col-lg-4">
+                  <img src="images/jupyter_nocircles.png" width="60%">
+                    <!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="https://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    </svg> -->
+                    <h2>Explainer Notebook</h2>
+                    <p><a class="btn btn-secondary" href="https://nbviewer.jupyter.org/github/nadjariis/SocialGraphs2020/blob/main/ExplainerNotebook_final.ipynb" role="button">View Notebook &raquo;</a></p>
+                </div><!-- /.col-lg-4 -->
+            </div><!-- /.row -->
+            <!-- START THE FEATURETTES -->
+            <hr class="featurette-divider" id="id_intro">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading">Data science and music? <span class="text-muted">Hear us out.</span></h2>
+                    <p class="lead">
+                        Have you ever wondered how the artists of two different music genres might be connected? If so, you've come to the right place. 
+                        This webpage provides an exploration of the Wikipedia pages of artists from the two genres "West Coast Hip Hop" and "Dance Pop", using links between 
+                        the pages to create a network connecting all artists. This network contains several communities, which are further explored. 
+                        The Wikipedia pages provide a large amount of text, allowing for text and sentiment analysis of artists as well as communites. 
+                        By including lyrics from some of the songs associated with the artists, it is also possible to explore sentiments of lyrics and investigate 
+                        how these sentiments change over time.
+                    </p>
+                </div>
+            </div>
+            <hr class="featurette-divider" id="id_genres">
+            <div class="row featurette">
+                <div class="col-md-5 order-md-2">
+                    <h2 class="featurette-heading">The choice of genres <br> <span class="text-muted">was not trivial.</span></h2>
+                    <p class="lead">
+                        So how do you choose which two genres to explore? We aimed to select two genres that were somewhat connected, but simultaneously distinct 
+                        enough to form clusters. Ultimately, it came down to selecting two genres that both contain artists that have (or have had) a noteworthy 
+                        presence in the music business. That could be artists such as Beyoncé, Snoop Dogg and Madonna. Artists such as these will most likely be 
+                        referenced by both artists from the same genre, and artists from the opposite genre. On the contrary, smaller artists will most likely 
+                        mainly be referenced by artists from their own genre.
+
+                        To get an overview of how our genres relate to each other, we have visualized the entire network. As seen from the visualization the 
+                        two genres can be separated into clear clusters, which tells us that the Wikipedia pages of the artists generally refer to artists 
+                        from the same genre, more often than they refer to artists from the other genre.
+                    </p>
+                </div>
+                <div class="col-md-7 order-md-1">
+                  <img src="images/BasicGraphSmall.png" width="100%">
+                </div>
+            </div>
+            <hr class="featurette-divider" id="id_network">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading">Delving into the network <br> <span class="text-muted">and calculating some basic statistics.</span></h2>
+                    <p class="lead">
+                      After removing isolated nodes (nodes with no connections) from our artist network, we are left with 595 nodes and 4247 edges that connect them. To get a better understanding
+                      of the network, we can start by examining the number of edges that go into and out of each node. This is also called the degree of a node. In this case, the average degree is 
+                      11.35, meaning that each node is on average connected to 11.35 other nodes. Let's dig a little deeper and make a degree distribution plot. 
+                    </p>    
+                    <div>
+                      <img src="images/DegreeDistribution.png" width="70%" class="center-image">
+                    </div>
+                    <p class="lead">
+                      We observe that the degree distribution appears to follow a power law (approximately, at least) with many nodes having small degree and a few nodes having very large degree. 
+                      This indicates that we are dealing with a scale-free network, which means that we expect the emergence of hubs in the network. A hub is simply a node with a number of connections that greatly exceeds the average <a href="https://en.wikipedia.org/wiki/Hub_(network_science)">[1]</a>. 
+                      In this case, some hubs could be e.g. Snoop Dogg and Madonna. 
+                    </p>
+                    <p class="lead">
+                      Now that we know a little more about the nodes in the network, let's take a closer look at a section of the network. Knowing the average degree to be 11.35,
+                      we choose to look at only the nodes with degree larger than 15. Below is a visualization containing only these nodes
+                      and their connections. Please note that since all nodes with degree less than 15 have been removed, some nodes appear to have quite few connections in this network, 
+                      even though they have at least 15 connections in the full network.
+                    </p>
+                    <div>
+                      <object class="ob" data="_includes/graph_output.html" width="100%" height="825px"></object>
+                    </div>
+                    <p class="lead">
+                      The purple nodes are Dance Pop artists, while the blue nodes are West Coast Hip Hop artists. The single green node
+                      belongs to both genres. The node size depends on the degree of the node, which explains why e.g. the Snoop Dogg node is so large. Please notice
+                      that the network is interactive, which allows for both zooming and dragging. Furthermore, hovering over a node lists the
+                      neighbours of the given node, while clicking a node higlights its connections.
+                    </p>
+                    <p class="lead">
+                      The visualization clearly illustrates the hub-structure in the network, with some notable hubs being e.g. Snoop Dogg, Dr. Dre and Madonna. An interesting difference between 
+                      these nodes is that Snoop Dogg appears to be connected to quite a few Dance-Pop artists, while Madonna is connected to very few West Coast Hip Hop artists. Factors such as these
+                      play a big role when attemtpting to divide the network into communities, as we will do in the next section.
+                    </p>
+                </div>
+            </div>
+          
+            <hr class="featurette-divider" id="id_communities">
+            <div class="row featurette">
+                <div class="col-md-5">
+                    <h2 class="featurette-heading">Finding communities <br> <span class="text-muted">within the network.</span></h2>
+                    <p class="lead">
+                      A network is said to have community structure if the nodes of the network can be grouped into sets of nodes, such that each set of nodes is densely connected internally <a href="https://en.wikipedia.org/wiki/Community_structure">[2]</a>. 
+                      With the use of specific algorithms we were able to find around 13 communities in our artist network. The five largest communities 
+                      consist of more than 50 artists, while the rest of the communities consist of less than 20 artists. To get a sense of which artists are placed in which communities, we 
+                      have listed the ten artists with largest degree, from each of the five largest communities. 
+                      <br>
+                      Even without too much background knowledge on the two music genres, it is clear to see that the communities make somewhat sense. Community 1 contains a lot of the most notable
+                      Dance Pop artists, while community 2 and 3 contain several notable West Coast Hip Hop artists. Aside from several rappers/hip-hop groups, community 3 contains Chris Brown.
+                      This might seem odd at first, but Chris Brown has collaborated with a few West Coast rappers such as Tyga, Kendrick Lamar, Wiz Kalifa and so on, and this could be the reason why Chris Brown is more
+                      connected to West Coast artists. Community 5 also contains the Dance Pop band Gorillaz, and Gorillaz actually collaborated with Del the Funky Homosapien, and thus both of those Wikipedia pages link to each other, which
+                      might explain why Gorillaz was placed in community 5. 
+                    </p>
+                </div>
+                <div class="col-md-7">
+                    <table style="width:100%">
+                      <tr>
+                        <th>Community 1</th>
+                        <th>Community 2</th> 
+                        <th>Community 3</th>
+                        <th>Community 4</th>  
+                        <th>Community 5</th>  
+                      </tr>
+                      <tr>
+                        <td>Madonna (Dance Pop)</td>
+                        <td>Snoop Dogg (West Coast)</td>
+                        <td>Kendrick Lamar (West Coast)</td>
+                        <td>Paris (West Coast)</td>
+                        <td>Planet Asia (West Coast)</td>
+                      </tr>
+                      <tr>
+                        <td>Britney Spears (Dance Pop)</td>
+                        <td>Dr. Dre (West Coast)</td>
+                        <td>Chris Brown (Dance Pop)</td>
+                        <td>Subnoize Souljaz (West Coast)</td>
+                        <td>Dilated Peoples (West Coast)</td>
+                      </tr>
+                      <tr>
+                        <td>Rihanna (Dance Pop)</td>
+                        <td>Ice Cube (West Coast)</td>
+                        <td>Wiz Khalifa (West Coast)</td>
+                        <td>Kottonmouth Kings (West Coast)</td>
+                        <td>Murs (West Coast)</td>
+                      </tr>
+                      <tr>
+                        <td>Michael Jackson (Dance Pop)</td>
+                        <td>The Game (West Coast)</td>
+                        <td>Dom Kennedy (West Coast)</td>
+                        <td>Havoc (West Coast)</td>
+                        <td>Gorillaz (Dance Pop)</td>
+                      </tr>
+                      <tr>
+                          <td>Janet Jackson (Dance Pop)</td>
+                          <td>Tha Dogg Pound (West Coast)</td>
+                          <td>Tyga (West Coast)</td>
+                          <td>Young Murder Squad (West Coast)</td>
+                          <td>Evidence (West Coast)</td>
+                      </tr>
+                      <tr>
+                          <td>Lady Gaga (Dance Pop)</td>
+                          <td>Kurupt (West Coast)</td>
+                          <td>Problem (West Coast)</td>
+                          <td>Kingspade (West Coast)</td>
+                          <td>Del the Funky Homosapien (West Coast)</td>
+                      </tr>
+                      <tr>
+                          <td>Nicki Minaj (Dance Pop)</td>
+                          <td>Eazy-E (West Coast)</td>
+                          <td>Alchemist (West Coast)</td>
+                          <td>Potluck (West Coast)</td>
+                          <td>People Under The Stairs (West Coast)</td>
+                      </tr>
+                      <tr>
+                          <td>Mariah Carey (Dance Pop)</td>
+                          <td>N.W.A (West Coast)</td>
+                          <td>Ty Dolla $ign (West Coast)</td>
+                          <td>Delinquent Habits (West Coast)</td>
+                          <td>Pigeon John (West Coast)</td>
+                      </tr>
+                      <tr>
+                          <td>Katy Perry (Dance Pop)</td>
+                          <td>DJ Quik (West Coast)</td>
+                          <td>YG (West Coast)</td>
+                          <td>Hed PE (West Coast)</td>
+                          <td>Domino (West Coast)</td>
+                      </tr>
+                      <tr>
+                          <td>Justin Timberlake (Dance Pop)</td>
+                          <td>Kam (West Coast)</td>
+                          <td>Schoolboy Q (West Coast)</td>
+                          <td>Sen Dog (West Coast)</td>
+                          <td>The Grouch (West Coast)</td>
+                      </tr>
+                    </table></p>
+                    <img src="images/CommunityGraph.png" width="100%" class="right-image">
+                </div>
+                <div class="col-md-12">
+                    <p class="lead">
+                      To get a better understanding of the communities, we have visualized them by drawing a network similar to the one we drew in the beginning, only this time with each node being
+                      colored based on the community it belongs to. As seen from the visualization, there are five clearly distinguishable communities. This corresponds nicely with the fact that 
+                      five of the communities we found are significantly larger than the rest. Most of the Dance Pop artists are placed in a single, large community, while the West Coast Hip Hop artists
+                      are divided into four communities. Two of these four communities appear to contain a few Dance Pop artists as well - presumabely Gorillaz, for example.
+                    </p>
+                    <p class="lead">
+                      We've already learned a lot about our network by considering only the network itself. However, we can learn much more by digging into the actual text from the Wikipedia pages,
+                      as well as the lyrics from songs associated with the artists. This will be the focal point of the following sections.
+                    </p>
+                </div>
+            </div>
+      
+            <hr class="featurette-divider" id="id_communitywords">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading">Which words define the communities? <span class="text-muted">Let's make some wordclouds.</span></h2>
+                    <p class="lead">
+                      We've established that our network can be divided into five large distinguishable communities (plus a bunch of small communities). 
+                      One way to learn more about our communities would be to make wordclouds, which are simply visualizations consisting of
+                      free-floating words, where the size of the words indicate their relevance. Since we have a bunch of text from the
+                      Wikipedia pages, we can easily make a corpus for each community, containing all the text from the artists belonging to the 
+                      given community. The relevance of each word can then be determined by the use of TF-IDF <a href="https://en.wikipedia.org/wiki/Tf–idf">[3]</a>, which is described 
+                      in-depth in the Explainer Notebook. Below are wordclouds for the five largest communities. 
+                    </p>
+                    </div>
+                    <div class="col-md-4">
+                      <img src="images/Community 1.png" style="width: 100%"> 
+                    </div>
+                    <div class="col-md-4">
+                      <img src="images/Community 2.png" style="width: 100%">
+                    </div>
+                    <div class="col-md-4">
+                      <img src="images/Community 3.png" style="width: 100%">
+                    </div>
+                    <div class="col-md-6">
+                      <img src="images/Community 4.png" style="width: 100%">
+                    </div>
+                    <div class="col-md-6">
+                      <img src="images/Community 5.png" style="width: 100%">
+                    </div>
+                    <p class='lead'>
+                      <br>
+                      The most prominent words in the wordcloud for community 1 appear to be words such as "Cher", "Rihanna", "Award" and "Billboard". We know that the Rihanna and Cher
+                      nodes are placed in community 1, and so we would expect these words to be prominent in the wordcloud. Since community 1 generally contains a lot of successful
+                      artists, it makes sense that "Award" and "Billboard" are prominent as well. 
+                      Community 2 contains the rapper Ice Cube, which explains the occurence of words "Ice" and "Cube" in the wordcloud. Furthermore, "Marrow" is a prominent word in the wordcloud.
+                      This is actually the surname of rapper Ice-T, who is also placed in community 2. 
+                      Previously, we discussed the placement of Gorillaz in community 5. Looking at the wordcloud for community 5, it is evident that Gorillaz is actually quite defining for the
+                      community. Some of the more prominent words are "Gorillaz", "Hewlett" and "Albarn". These are all related to Gorillaz, Damon Albarn being the lead vocalist of the band,
+                      and Jamie Hewlett being responsible for character design.
+                    </p>
+            </div>
+      
+            <hr class="featurette-divider" id="id_genrewords">
+            <div class="row featurette">
+                <div>
+                    <h2 class="featurette-heading">What about the genres then? <span class="text-muted">More wordclouds.</span></h2>
+                    <p class="lead"> 
+                      Earlier we saw that the genres can be clearly separated into two large clusters, and so it would be interesting to
+                      investigate whether there are some words that are typical for the genres. Wordclouds are a great tool for investigating exactly this
+                      and as with the communities, we can easily make a corpus for each genre containing all the text from the artists belonging to the 
+                      given genre. However, TF-IDF can get a bit weird when we only have to groups to compare. Instead, we introduce term ratios (TR) and combine this with term 
+                      frequencies (TF) to make TF-TR lists that will work specifically in the cases where we want to compare two groups <a href="https://nbviewer.jupyter.org/github/socialcomplexitylab/socialgraphs2020/blob/master/lectures/Week7.ipynb?flush_cache=Ttrue">[4]</a>. This measure is further
+                      described in the Explainer Notebook. Below are two wordclouds; one for each genre.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                  <img src="images/DancePop.png" width="100%" class="left-image">
+                </div>
+                <div class="col-md-6">
+                  <img src="images/WestCoast.png" width="100%" class="right-image">
+                </div>
+                <div>
+                    <p class="lead"> 
+                      Without looking at the titles above the plots, it's easy to see which wordcloud belongs to which genre. The most prominent words in the Dance-Pop wordcloud are "Selena", 
+                      "Minogue" and "Cher". These artists (Selena Gomez, Kylie Minogue and Cher) are all noteworthy musicians, and so it makes sense that they have contributed to defining the genre.
+                      Other genre-defining artists such as Lady Gaga and Rihanna are also present in the wordcloud, but as a consequence of the way the relevancy of each word was calculated, these 
+                      words appear less relevant. 
+                    </p>
+                    <p class="lead">
+                      The relevancy of each word is "weighted", meaning that a word is deemed more relevant for the genre if it appears mostly in the given genre, and not
+                      in the other genre. This implies that artists such as Selena Gomez and Kylie Minogue are very specific to the Dance-Pop genre, whereas e.g. Rihanna appears in both genres, and 
+                      is therefore not especially typical for the Dance-Pop genre.
+
+                      For the West Coast wordcloud, the most prominent words appear to be "Hussle" and "Hopsin". As with the Dance-Pop artists, we can infer that these two artists must be especially
+                      typical for West Coast Hip Hop.
+                    </p>
+                </div>
+            </div>
+          
+            <hr class="featurette-divider" id="id_pagesentiment">
+            <div class="row featurette">
+                <div class='col-md-7'>
+                    <h2 class="featurette-heading">Can we identify the genre <span class="text-muted">based on the sentiment of the artist's wikipage?</span></h2>
+                    <p class="lead"> 
+                      We want to continue our investigation of the differences between the two genres, with a sentiment 
+                      analysis of the artists wikipages. Sentiment analysis refers to a text analysis to
+                      systematically identify and study subjective information in a text. We have used the 
+                      LabMT wordlist from <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0026752">[5]</a>, to create our sentiment analysis. This wordlist contains information 
+                      about how "happy" each word on the list is, and based on this list we can look into how happy 
+                      or sad each artist's wikipage is. Wikipages are supposed to be neutral, so we will expect that the 
+                      sentiment of the wikipages will be around 5, which is a neutral score.
+                    </p>
+                </div>
+                    <style type="text/css"><style type="text/css">
+                      .tg  {border:none;border-collapse:collapse;border-spacing:0;}
+                      .tg  {margin-left: auto; margin-right: auto}
+                      .tg td{border-style:solid;border-width:0px;font-family:Arial, sans-serif;font-size:14px;overflow:hidden;
+                        padding:10px 5px;word-break:normal;}
+                      .tg th{border-style:solid;border-width:0px;font-family:Arial, sans-serif;font-size:14px;font-weight:bold;
+                        overflow:hidden;padding:10px 5px;word-break:normal;}
+                      .tg .tg-z4i2{border-color:#ffffff;text-align:left;vertical-align:middle}
+                      .tg .tg-zv4m{border-color:#ffffff;text-align:left;vertical-align:top}
+                    </style>
+                <div class='col-md-5'>
+                    <table class="tg">
+                    <thead>
+                      <tr>
+                        <th class="tg-z4i2" colspan="2">Happiest artists</th>
+                        <th class="tg-z4i2" colspan="2">Saddest artists</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="tg-z4i2">Exposé</td>
+                        <td class="tg-zv4m">5.920</td>
+                        <td class="tg-z4i2">Mac Minister</td>
+                        <td class="tg-zv4m">5.133</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Kim Hyun jung</td>
+                        <td class="tg-zv4m">5.755</td>
+                        <td class="tg-z4i2">Dresta</td>
+                        <td class="tg-zv4m">5.246</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Sarina Paris</td>
+                        <td class="tg-zv4m">5.696</td>
+                        <td class="tg-z4i2">Madchild</td>
+                        <td class="tg-zv4m">5.249</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Samantha James</td>
+                        <td class="tg-zv4m">5.676</td>
+                        <td class="tg-z4i2">Cougnut</td>
+                        <td class="tg-zv4m">5.251</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Paul Pesco</td>
+                        <td class="tg-zv4m">5.668</td>
+                        <td class="tg-z4i2">Bloods &amp; Crips</td>
+                        <td class="tg-zv4m">5.261</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  
+                    <table class="tg">
+                    <thead>
+                      <tr>
+                        <th class="tg-z4i2" colspan="2">Most connected Dance-Pop artists</th>
+                        <th class="tg-z4i2" colspan="2">Most connected West Coast artists</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="tg-z4i2">Britney Spears</td>
+                        <td class="tg-zv4m">5.515</td>
+                        <td class="tg-z4i2">Snoop Dogg</td>
+                        <td class="tg-zv4m">5.406</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2"> Madonna</td>
+                        <td class="tg-zv4m">5.548</td>
+                        <td class="tg-z4i2">Dr. Dre</td>
+                        <td class="tg-zv4m">5.440</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Rihanna</td>
+                        <td class="tg-zv4m">5.543</td>
+                        <td class="tg-z4i2">Ice Cube</td>
+                        <td class="tg-zv4m">5.477</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Nicki Minaj</td>
+                        <td class="tg-zv4m">5.490</td>
+                        <td class="tg-z4i2">E-40</td>
+                        <td class="tg-zv4m">5.517</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-z4i2">Janet Jackson</td>
+                        <td class="tg-zv4m">5.548</td>
+                        <td class="tg-z4i2">The Game</td>
+                        <td class="tg-zv4m">5.373</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                </div>
+               <div class='col-md-12'>
+                 <p class='lead'>
+                   Though wikipages are written in neutral language, it could be interesting to investigate 
+                   whether, based on the sentiment, one can predict which genre each artist belongs to. We have indentified the five happiest 
+                   pages and the five saddest pages. The artists the pages belong to are listed in the table 
+                   to the right with their corresponding sentiment score.  
+                   
+                  The five happiest artists are Dance Pop artists, while the five saddest artists are West 
+                  Coast artists. It appears as though there is a pattern where artists from the Dance Pop genre 
+                  have a higher sentiment score than artists from the West Coast genre. When calculating the average
+                  sentiment score for each of the two genres, we get that the average sentiment score 
+                  for a Dance Pop artist is 5.508, while the average for a West Coast artist is 5.464. 
+                  In respect to that, the minimum sentiment value for the pages is 5.133 and the maximum sentiment 
+                  value is 5.920. The difference between the genres is not that large, but still distinct.
+                  A distribution plot for the sentiments of the pages is shown below.
+                 </p>
+                 <img src="images/SentimentArtists.png" width="100%" class="center-image">
+                 <p class="lead"> 
+                      From the distribution plot it appears that the sentiment scores for the artists wikipages
+                      follow a left skewed normal distribution, with mean 5.487 and standard deviation 0.081. The
+                      wikipages do not differ that much in sentiment score, but this is to be expected because we 
+                      assume that wikipages are written in a somewhat neutral language. The average sentiment score for the two genres
+                      is shown on the distribution plot. It is easy to see that the two genres have overlapping normal distributions, but that 
+                      the sentiment score for the West Coast artists are generally lower than the sentiment scores for the Dance Pop artists.
+                 </p>
+                 <p class="lead">
+                      We have looked at the sentiment score for the five largest degree artists from each of the two 
+                      genres. These are listed in the table above. An artist has a large degree if their wikipage links
+                      to a lot of other pages, and/or if they are linked to by a lot of other artists’ wikipages. When an artist is mentioned it's often a result of a collaboration between the two artists, or perhaps an a sign of one artist influencing the other. 
+                      The degrees were calculated using the full network, as some artists might be linked to more often by artists outside of the genre they belong to.
+                   
+                      From the table we can see that Madonna, Janet Jackson, and Rihanna from the Dance Pop genre have the highest sentiment scores, 
+                      while The Game, Snoop Dogg and Dr. Dre from the West Coast genre have the lowest sentiment scores.
+                      However, E-40 is an exception because he has a sentiment score which is similar to 
+                      the sentiment scores of the Dance Pop artists.   
+                 </p>
+                 <p class="lead">
+                      Although the sentiments of the wikipages can teach us something about the indivdual artists, we can possibly
+                      learn even more by investigating the lyrics of songs associated with each artist. We will dig into this in 
+                      the following sections. 
+                 </p>
+               </div>
+            </div>
+      
+            <hr class="featurette-divider" id="id_lyricsentiment">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading">Investigating song lyrics <br> <span class="text-muted"> and differences across the genres. </span></h2>
+                    <p class="lead">
+                      First, let’s take a look at the five largest degree artists in Dance Pop, and investigate the words that define their music. 
+                      The artists in Dance Pop with largest degree (both in- and out-degrees) are Britney Spears (90), Madonna (87), Rihanna (76), 
+                      Nicki Minaj (61) and Janet Jackson (59). Looking at the wordclouds below, the most defining words for this genre are “love”, “boy”, 
+                      “dream”, “life” and “God” just to name a few. The positive wording is characteristic for the genre, and the lyrics reflect the fact 
+                      that most songs are about big themes like love, dreams and God. This corresponds well with the sentiment of the lyrics, where all top 
+                      five artists, except Nicki Minaj, have sentiments above 5.5. If we take a closer look at Nicki Minaj and the artists she has collaborated with, 
+                      we can observe that she has worked with a number of West Coast Hiphop artists as well as Dance Pop artists. She is well known for 
+                      her rapping skills, and the more hardcore language is therefore reflected in her wordcloud and sentiment score.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Britney Spears.png" style="width: 100%"> 
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Madonna.png" style="width: 100%">
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Rihanna.png" style="width: 100%">
+                </div>
+                <div class="col-md-6">
+                  <img src="images/Nicki Minaj.png" style="width: 100%">
+                </div>
+                <div class="col-md-6">
+                  <img src="images/Janet Jackson.png" style="width: 100%">
+                </div>
+            </div>
+      
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <p class="lead"> 
+                      <br>
+                      Now let’s analyze the song lyrics of the five most connected artists in the West Coast genre. The artists with largest degrees 
+                      are Snoop Dogg (136), Dr. Dre (112), Ice Cube (85), E-40 (83) and The Game (81). The sentiments for all top five artists in the West 
+                      Coast genre are lower than the average sentiment for a Dance Pop artist. They use a more harsh language which is evident when looking at the sentiment 
+                      scores as well as the individual wordclouds. Some of the repeating words in the wordclouds are “mean” and “bitch”, but also “love” and 
+                      “God/heaven/dream”. So even though we would characterize the genre by the harsh language, it contains many positive words as well. Apparently 
+                      even the hardcore rappers have a soft side.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Snoop Dogg.png" style="width: 100%"> 
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Dr. Dre.png" style="width: 100%">
+                </div>
+                <div class="col-md-4">
+                  <img src="images/Ice Cube.png" style="width: 100%">
+                </div>
+                <div class="col-md-6">
+                  <img src="images/E-40.png" style="width: 100%">
+                </div>
+                <div class="col-md-6">
+                  <img src="images/The Game.png" style="width: 100%">
+                </div>
+              <p class="lead">
+                <br>
+                Now that we've seen that there are in fact some differences in sentiment depending on the genre to which the artist belongs, it would be interesting
+                to look at the average sentiment for all songs in the two genres. Furthermore, one might wonder whether the average sentiment changes throughout time, 
+                perhaps reflecting concurrent events in society. We will delve into this in the next section.
+              </p>
+            </div>
+      
+            <hr class="featurette-divider" id="id_sentimentchanges">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading"> Do song lyrics change over time? <span class="text-muted"> A deeper look into sentiment changes in lyrics.</span></h2>
+                    <p class="lead"> 
+                      The trends in the music industry change with time, and even genres that appear quite different could have some trends in common.
+                      We want to investigate whether the two genres are becoming more similar, or if they are in fact drifting further apart as time goes by.
+
+                      Analyzing the sentiment over time and taking a closer look at the most defining words in the lyrics, might give an
+                      indication of how the connection, collaboration and inspiration has evolved between the two genres. Our goal is not to predict how 
+                      these two genres evolves, but to get a deeper understanding of connections already formed by two very different genres.     
+
+                      If the sentiments of song lyrics from the two genres have some of the same spikes or pits, we could possibly link those to real life events. 
+                      For each genre we take the songs that have a release date on Genius, group them by year and then compute the average 
+                      sentiment of songs in each year. Hovering over the lines in the plot shows the average sentiment that year and the number of songs it's based upon. 
+                    </p>
+                </div>
+            </div>
+      
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <div id="song_sentiment_chart_div" style="display: table; margin: 0 auto; width: 90%; height: 500px;"></div>
+                   <p class="lead"> 
+                      The line plot gives some insight into how each genre evolves by showing the changes in (lyric) sentiment through time. 
+                      The average sentiment for all songs in the Dance Pop genre is 5.57, while it is 5.32 for the West Coast genre.  
+                      The average sentiment is based on all songs, both those with a date and those with a unidentified date. The line plot
+                      is only based on the songs, for which there was given a specific release date. So some uncertainty is caused by the lack of 
+                      dates on all songs. However, the line plot still gives some valuable insight into the change in sentiment 
+                      for each genre and provides a simple way to compare the two genres. 
+
+                      We assumed all songs produced by an artist to be of the genre associated with the artist, so even though the Dance Pop genre started in 
+                      the early 1980s, we observe that some songs have been released before that. On the contrary, the origins of West Coast 
+                      trace back to the late 1970s, which explains why our chart only shows songs from 1982 to today. Based on our understading 
+                      of the West Coast genre, the artists started and stayed true to the genre throughout their music career, whereas the Dance Pop
+                      artist are more likely to produce music in Pop, R&B or other similar genres.           
+                   </p>
+                </div>
+              
+              <div class="col-md-6">
+                    <img src="images/DancePop1996.png" style="width: 100%"> 
+                </div>
+              <div class="col-md-6">
+                    <img src="images/WestCoast1996.png" style="width: 100%"> 
+                </div>
+              <div class="col-md-6">
+                    <img src="images/DancePop2007.png" style="width: 100%"> 
+                </div>
+              <div class="col-md-6">
+                    <img src="images/WestCoast2007.png" style="width: 100%"> 
+                </div>
+              <div class="col-md-12">
+                    <div id="song_sentiment_chart_div" style="display: table; margin: 0 auto; width: 90%; height: 500px;"></div>
+                   <p class="lead"> 
+                    <br>
+                    The sentiment rises and falls over time, and in some years, like 1996, the average sentiment of the lyrics rises. Similarly, in 2007, 
+                    the sentiment drops in both genres. Let's take a closer look at the songs released in those years. 
+                    We used wordclouds to inspect which words might influence the average sentiment. 
+                    In 1996 the Olympic games were in the US, and this might explain why words like "people", "world" and "olympic" appear in the wordclouds for 1996. 
+                    These words are commonly used in Olympic-themed songs, and since these words have above average sentiment scores (6.5-7), they could contribute to 
+                    an increase in overall sentiment in 1996.
+                    The sentiment seems to drop a little for both genres in 2007, and this drop could perhaps be explained by the prominence of words such as 
+                    "cry" and "upset" in the Dance Pop wordcloud and "fear" in both wordclouds. As one would expect, these three words all have quite low sentiment scores.  
+                   </p>
+                   <p class="lead">
+                      Apart from a few spikes, the song lyric sentiment generally appears quite stable. Note that the first few years were based on fewer songs, and
+                     thus the average sentiment will be impacted more by a single very happy/positive or very sad/negative song. As opposed to this, in the later years we have so many songs
+                     that they might end up balancing each other out, resulting in a more stable sentiment trend. 
+                   </p>
+                </div>
+              
+            </div>
+            <hr class="featurette-divider" id="id_connection">
+            <div class="row featurette">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading">So are the two genres connected?</h2>
+                    <p class="lead">
+                      The wikipedia text provides a great overview of an artist's life and collaborations as well as a brief overview of their songs. However, 
+                      the wikipages are not written by each artist themselves, and so to gain deeper insight about the artist and their work in each genre, 
+                      we chose to analyze the lyrics of some of their songs as well. Music is art and art is an expression of feelings and emotion, which 
+                      means that putting emphasis on sentiment and wordclouds when analyzing song lyrics makes great sense. First we aimed to explain the 
+                      word use in each genre and use that insight to find indications of collaborations between artists. As representatives for the genres, 
+                      we used the five artists in each genre with largest node degrees. The sentiment analysis showed that some Dance Pop artists, like 
+                      Nicki Minaj, have a sentiment score more fitting for a West Coast artist and the wordcloud showed a tendency to use the same language 
+                      as the West Coast rappers.
+                    </p>
+                    <p class="lead">
+                      Over time the sentiments of the songs in the two genres become more similar. This could indicate more collaborations between the two 
+                      genres, and the wordclouds for Dance Pop from 2007 show a couple of words associated with the West Coast genre. 
+                      So are the two genres connected? Although the genres could be separated into two distinguishable clusters in the network, through 
+                      our analysis we have found plenty of evidence indicating that the two genres are connected, e.g. with respect to sentiment of song lyrics.
+                    </p>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <!-- /END THE FEATURETTES -->
+        </div><!-- /.container -->
+        <!-- FOOTER -->
+        <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>Nina Melin (s154326), Thina Thøgersen (s165541), Nadja Riis (s153445) <br> 02805 Social Graphs and Interactions <br> Technical University of Denmark <br> December 2020</p>
+        </footer>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>
+    window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')
+    </script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
